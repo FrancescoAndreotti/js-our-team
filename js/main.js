@@ -15,39 +15,55 @@ console.log(myArray);
 //inserire valori inseriti nel form e poi inserirli nel dom
 
 
-//recupero dal dom il container
+//recupero dal dom il container e il bottone 
 const teamContainer = document.querySelector(".team-container");
+const addBtn = document.getElementById("addMemberButton");
+
+
+createCard();
+
+
+function createCard() {
+    teamContainer.innerHTML = "";
+    for (i = 0; i < myArray.length; i++) {
+
+        //creo la card
+        const teamCard = document.createElement("div");
+
+        teamCard.classList.add("team-card");
+
+
+        //creo card img e aggiungo elementi all'interno
+        const cardImage = document.createElement("div");
+        cardImage.classList.add("card-image");
+        cardImage.innerHTML += `<img src="${myArray[i][2]}" alt="${myArray[i][0]}">`;
+
+        //creo div card text e elementi all'interno
+        const cardText = document.createElement("div");
+        cardText.classList.add("card-text");
+        cardText.innerHTML += `<h3>${myArray[i][0]}</h3><p>${myArray[i][1]}</p>`;
 
 
 
 
 
-for (i = 0; i < myArray.length; i++) {
-
-    //creo la card
-    const teamCard = document.createElement("div");
-
-    teamCard.classList.add("team-card");
+        teamCard.append(cardImage, cardText);
 
 
-    //creo card img e aggiungo elementi all'interno
-    const cardImage = document.createElement("div");
-    cardImage.classList.add("card-image");
-    cardImage.innerHTML += `<img src="${myArray[i][2]}" alt="${myArray[i][0]}">`;
-
-    //creo div card text e elementi all'interno
-    const cardText = document.createElement("div");
-    cardText.classList.add("card-text");
-    cardText.innerHTML += `<h3>${myArray[i][0]}</h3><p>${myArray[i][1]}</p>`;
-
-
-
-
-
-    teamCard.append(cardImage, cardText);
-
-
-    //Aggiungo le card al container
-    teamContainer.append(teamCard);
-
+        //Aggiungo le card al container
+        teamContainer.append(teamCard);
+    }
 }
+
+
+addBtn.addEventListener("click", function () {
+    const arrayTwo = [];
+    const nome = document.getElementById("name").value;
+    const ruolo = document.getElementById("role").value;
+    const img = document.getElementById("image").value;
+
+    arrayTwo.push(nome, ruolo, img);
+    myArray.push(arrayTwo);
+    console.log(myArray);
+    createCard();
+});
